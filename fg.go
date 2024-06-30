@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 )
@@ -16,6 +17,17 @@ var outputDirectory = flag.String("out", "", "output directory of the fortunes (
 
 func main() {
 	flag.Parse()
+
+	// check if the "strfile" command exists:
+	commandName := "strfile"
+	path, err := exec.LookPath(commandName)
+
+	if err != nil {
+		fmt.Println(commandName, "command does not exist")
+		panic(err)
+	} else {
+		fmt.Println(commandName, "exists at", path)
+	}
 
 	*sourceDirectory = "./test-fortunes"
 
