@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+project_name: fortunes-generator
+builds:
+    - id: fortunes-generator
+      goos:
+          - linux
+          - windows
+          - freebsd
+          - openbsd
+      goarch:
+          - amd64
+          - arm
+          - arm64
+          - loong64
+          - ppc64le
+          - s390x
+      goarm:
+          - 5
+          - 6
+          - 7
+      flags:
+          - -trimpath
+      ignore:
+          - goos: freebsd
+            goarch: arm
+          - goos: openbsd
+            goarch: arm
+          - goos: freebsd
+            goarch: arm64
+          - goos: openbsd
+            goarch: arm64
