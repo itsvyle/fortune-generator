@@ -1,19 +1,22 @@
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 project_name: fortunes-generator
+version: 2
 builds:
     - id: fortunes-generator
+      binary: '{{.ProjectName}}_{{.Version}}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
+      no_unique_dist_dir: true
       goos:
           - linux
           - windows
-          - freebsd
-          - openbsd
+          # - freebsd
+          # - openbsd
       goarch:
           - amd64
           - arm
           - arm64
-          - loong64
-          - ppc64le
-          - s390x
+          # - loong64
+          # - ppc64le
+          # - s390x
       goarm:
           - 5
           - 6
@@ -29,3 +32,4 @@ builds:
             goarch: arm64
           - goos: openbsd
             goarch: arm64
+dist: "./dist"
