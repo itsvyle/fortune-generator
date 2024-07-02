@@ -5,6 +5,7 @@ builds:
     - id: fortunes-generator
       binary: '{{.ProjectName}}_{{.Version}}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
       no_unique_dist_dir: true
+      mod_timestamp: "{{ .CommitTimestamp }}"
       goos:
           - linux
           - windows
@@ -33,3 +34,6 @@ builds:
           - goos: openbsd
             goarch: arm64
 dist: "./dist"
+checksum:
+    algorithm: sha256
+    split: false
