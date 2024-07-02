@@ -46,7 +46,7 @@ jobs:
                   go-version: 1.22.3
 
             - name: Install go-releaser
-              run: sudo apt update && sudo apt install -y goreleaser
+              run: sudo apt-get update && sudo apt-get install -y goreleaser
 
             - name: Run go-releaser
               run: _VERSION='${{env.VERSION_TAG}}' goreleaser build --snapshot --clean
