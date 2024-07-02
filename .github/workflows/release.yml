@@ -46,7 +46,7 @@ jobs:
                   go-version: 1.22.3
 
             - name: Install go-releaser
-              run: sudo apt-get update && sudo apt-get install -y goreleaser
+              run: echo 'deb [trusted=yes] https://repo.goreleaser.com/apt/ /' | sudo tee /etc/apt/sources.list.d/goreleaser.list && sudo apt-get update && sudo apt-get install -y goreleaser
 
             - name: Run go-releaser
               run: _VERSION='${{env.VERSION_TAG}}' goreleaser build --snapshot --clean
