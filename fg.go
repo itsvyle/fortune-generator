@@ -110,10 +110,7 @@ func main() {
 		}
 		totalFortunes += int32(fortunesCount)
 	}
-	output[numberOfEntriesByteLocation] = byte(len(output) >> 24)
-	output[numberOfEntriesByteLocation+1] = byte(len(output) >> 16)
-	output[numberOfEntriesByteLocation+2] = byte(len(output) >> 8)
-	output[numberOfEntriesByteLocation+3] = byte(len(output))
+	fillInt32(&output, numberOfEntriesByteLocation, totalFortunes)
 
 	log.Println("Total fortunes:", totalFortunes)
 
@@ -124,6 +121,13 @@ func main() {
 		return
 	}
 
+}
+
+func fillInt32(array *[]byte, index int, value int32) {
+	(*array)[index] = byte(value >> 24)
+	(*array)[index+1] = byte(value >> 16)
+	(*array)[index+2] = byte(value >> 8)
+	(*array)[index+3] = byte(value)
 }
 
 func isExecutable(fileInfo os.DirEntry) bool {
