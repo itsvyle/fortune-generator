@@ -51,6 +51,9 @@ jobs:
             - name: Run go-releaser
               run: _VERSION='${{env.VERSION_TAG}}' goreleaser build --snapshot --clean
 
+            - name: Cleanup unwanted files
+              run: rm -f dist/artifacts.json dist/config.yaml dist/metadata.json
+
             - name: Create Release
               id: create_release
               uses: softprops/action-gh-release@v2
