@@ -10,7 +10,6 @@ import (
 )
 
 const schemaVersion = 1
-const fortuneSeparator = "\n%\n"
 
 var maxLength = flag.Int("max", 160, "max length of the fortune")
 var maxLines = flag.Int("lines", 5, "max lines of the fortune")
