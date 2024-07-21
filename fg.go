@@ -84,15 +84,17 @@ func main() {
 		for _, line := range lines {
 
 			l := int32(len(line))
-			totalOffset += l + sepLength
 
 			if line == "" {
+				totalOffset += l + sepLength
 				continue
 			}
 			if strings.Count(line, "\n") > *maxLines {
+				totalOffset += l + sepLength
 				continue
 			}
 			if len(line) > *maxLength {
+				totalOffset += l + sepLength
 				continue
 			}
 			output = append(output, []byte{
@@ -108,6 +110,8 @@ func main() {
 				byte(0),
 			}...)
 			fortunesCount++
+
+			totalOffset += l + sepLength
 		}
 		totalFortunes += int32(fortunesCount)
 	}
