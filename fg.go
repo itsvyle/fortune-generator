@@ -82,6 +82,10 @@ func main() {
 		var sepLength int32 = int32(len(fortuneSeparator))
 		fortunesCount := 0
 		for _, line := range lines {
+
+			l := int32(len(line))
+			totalOffset += l + sepLength
+
 			if line == "" {
 				continue
 			}
@@ -91,7 +95,6 @@ func main() {
 			if len(line) > *maxLength {
 				continue
 			}
-			l := int32(len(line))
 			output = append(output, []byte{
 				byte(fileID),
 				byte(totalOffset >> 24),
@@ -104,7 +107,6 @@ func main() {
 				byte(l),
 				byte(0),
 			}...)
-			totalOffset += l + sepLength
 			fortunesCount++
 		}
 		totalFortunes += int32(fortunesCount)
