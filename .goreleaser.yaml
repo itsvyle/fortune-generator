@@ -25,7 +25,7 @@ builds:
       flags:
           - -trimpath
       ldflags:
-        - -X main.version={{envOrDefault "_VERSION" "DEV"}} -X main.date={{.Date}}
+        - -X main.date={{.Date}}
       ignore:
           - goos: freebsd
             goarch: arm
