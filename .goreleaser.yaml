@@ -1,9 +1,11 @@
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 project_name: fortunes-generator
 version: 2
+env:
+    - BUILD_VERSION={{ if index .Env "_VERSION"  }}{{ .Env._VERSION }}{{ else }}DEV{{ end }}
 builds:
     - id: fortunes-generator
-      binary: '{{.ProjectName}}_{{envOrDefault "_VERSION" "DEV"}}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
+      binary: '{{.ProjectName}}_{{.Env.BUILD_VERSION}}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
       no_unique_dist_dir: true
       mod_timestamp: "{{ .CommitTimestamp }}"
       goos:
@@ -25,8 +27,8 @@ builds:
       flags:
           - -trimpath
       ldflags:
-        - -X main.date={{.Date}}
-        - "-X \"main.version={{envOrDefault \"_VERSION\" \"DEV\"}}\""
+          - -X main.date={{.Date}}
+          - '-X "main.version={{.Env.BUILD_VERSION}}"'
       ignore:
           - goos: freebsd
             goarch: arm
