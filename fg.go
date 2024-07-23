@@ -16,8 +16,19 @@ var maxLines = flag.Int("lines", 5, "max lines of the fortune")
 var sourceDirectory = flag.String("dir", "", "source directory of the fortunes")
 var outputFile = flag.String("out", "", "output directory of the fortunes (defaults to fortunes.vyle)")
 
+var versionFlag = flag.Bool("version", false, "prints the version")
+
+var version string = "unknown"
+var date string = "unknown"
+
 func main() {
 	flag.Parse()
+
+	if *versionFlag {
+		fmt.Println("Version:", version)
+		fmt.Println("Date:", date)
+		return
+	}
 
 	*sourceDirectory = strings.TrimSuffix(*sourceDirectory, "/")
 	if *sourceDirectory == "" {
