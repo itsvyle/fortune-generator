@@ -13,15 +13,17 @@ const schemaVersion = 1
 
 var maxLength = flag.Int("max", 160, "max length of the fortune")
 var maxLines = flag.Int("lines", 5, "max lines of the fortune")
-var sourceDirectory = flag.String("dir", "/usr/share/games/fortunes", "source directory of the fortunes")
+var sourceDirectory = flag.String("dir", "", "source directory of the fortunes")
 var outputFile = flag.String("out", "", "output directory of the fortunes (defaults to fortunes.vyle)")
 
 func main() {
 	flag.Parse()
 
-	*sourceDirectory = "./test-fortunes"
-
 	*sourceDirectory = strings.TrimSuffix(*sourceDirectory, "/")
+	if *sourceDirectory == "" {
+		fmt.Println("Please provide a source directory")
+		return
+	}
 	if *outputFile == "" {
 		*outputFile = *sourceDirectory + "/fortunes.vyle"
 	}
@@ -114,6 +116,8 @@ func main() {
 			totalOffset += l + sepLength
 		}
 		totalFortunes += int32(fortunesCount)
+
+		log.Println("File:", f, "Fortunes count:", fortunesCount, ", original fortunes count:", len(lines))
 	}
 	fillInt32(&output, numberOfEntriesByteLocation, totalFortunes)
 
